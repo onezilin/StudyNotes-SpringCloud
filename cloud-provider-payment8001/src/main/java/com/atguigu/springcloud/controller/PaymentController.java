@@ -45,7 +45,7 @@ public class PaymentController {
      */
     @GetMapping("/get/{id}")
     public CommonResult<Payment> queryById(@PathVariable("id") Long id) {
-        return new CommonResult<>(200, "查询成功 + i", this.paymentService.queryById(id));
+        return new CommonResult<>(200, "查询成功", this.paymentService.queryById(id));
     }
 
     /**
