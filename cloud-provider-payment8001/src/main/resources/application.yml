@@ -6,7 +6,8 @@ spring:
     name: cloud-payment-service
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: org.gjt.mm.mysql.Driver
+    # 6.x 在 com.mysql.cj.jdbc 包下
+    driver-class-name: com.mysql.jdbc.Driver
     # TODO: 自定义
     url: jdbc:mysql://192.168.190.134:3306/db2019?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
