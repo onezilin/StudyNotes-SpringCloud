@@ -1,5 +1,6 @@
 package com.atguigu.springcloud.entities;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
