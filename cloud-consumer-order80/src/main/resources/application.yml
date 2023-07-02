@@ -3,11 +3,11 @@ server:
 
 spring:
   application:
-    name: cloud-order-service
+    name: cloud-order-service # Eureka Server 中的展示的服务别名
 
 eureka:
   client:
     register-with-eureka: true # 是否注册进 eureka 服务注册中心
     fetch-registry: true # 是否从 eureka 服务注册中心抓取已有的注册信息
     service-url:
-      defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/

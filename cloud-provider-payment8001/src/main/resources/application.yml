@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: cloud-payment-service
+    name: cloud-payment-service # Eureka Server 中的展示的服务别名
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # 6.x 在 com.mysql.cj.jdbc 包下
@@ -23,4 +23,4 @@ eureka:
     register-with-eureka: true # 是否注册进 eureka 服务注册中心
     fetch-registry: true # 是否从 eureka 服务注册中心抓取已有的注册信息
     service-url:
-      defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/

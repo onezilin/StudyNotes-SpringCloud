@@ -3,9 +3,10 @@ server:
 
 eureka:
   instance:
-    hostname: localhost # eureka 服务注册中心实例名称
+    hostname: eureka7001.com # eureka 服务注册中心实例名称，集群中唯一
   client:
     register-with-eureka: false # 不向注册中心注册自己
     fetch-registry: false # 声明自己是服务注册中心，eureka 服务注册中心只需要维护服务实例，不需要去检索服务
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      #      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://eureka7002.com:7002/eureka/ # 集群模式下值为其他 Eureka Server 地址，中间逗号 "," 隔开
