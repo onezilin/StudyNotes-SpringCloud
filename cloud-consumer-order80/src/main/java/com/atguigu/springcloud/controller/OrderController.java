@@ -14,7 +14,9 @@ import javax.annotation.Resource;
 @RequestMapping("/consumer")
 public class OrderController {
 
-    private static final String PAYMENT_URL = "http://localhost:8001";
+    // private static final String PAYMENT_URL = "http://localhost:8001";
+    // Eureka Server 注册中心中对应注册服务应用别名
+    private static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
 
     @Resource
     private RestTemplate restTemplate;

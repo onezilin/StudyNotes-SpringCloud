@@ -3,6 +3,7 @@ package com.atguigu.springcloud.controller;
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.service.PaymentService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ public class PaymentController {
     @Resource
     private PaymentService paymentService;
 
+    @Value("${server.port}")
+    private String serverPort;
+
     /**
      * 分页查询
      *
@@ -45,7 +49,7 @@ public class PaymentController {
      */
     @GetMapping("/get/{id}")
     public CommonResult<Payment> queryById(@PathVariable("id") Long id) {
-        return new CommonResult<>(200, "查询成功", this.paymentService.queryById(id));
+        return new CommonResult<>(200, "查询成功，serverPort：" + serverPort, this.paymentService.queryById(id));
     }
 
     /**
