@@ -1,0 +1,12 @@
+server:
+  port: 8004
+
+spring:
+  application:
+    name: cloud-provider-payment # 服务别名----注册 Zookeeper 到注册中心名称
+  cloud:
+    zookeeper:
+      # TODO: 自定义，逗号 "," 隔开
+      connect-string: 192.168.190.134:2181,192.168.190.134:2182,192.168.190.134:2183
+      # 是否将本服务注册到 Zookeeper，默认值为 true，和 @EnableDiscoveryClient 作用相同，也就是默认就会注册到 Zookeeper，该配置优先级更大
+      discovery.enabled: true
