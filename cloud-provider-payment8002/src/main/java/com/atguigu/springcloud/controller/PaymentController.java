@@ -109,5 +109,10 @@ public class PaymentController {
         });
         return discoryClient;
     }
+
+    @GetMapping("/lb")
+    public String getPaymentLB() {
+        return serverPort;
+    }
 }
 
