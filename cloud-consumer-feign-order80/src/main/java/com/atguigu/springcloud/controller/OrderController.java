@@ -1,8 +1,8 @@
-package com.studynotes.controller;
+package com.atguigu.springcloud.controller;
 
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
-import com.studynotes.service.PaymentFeignService;
+import com.atguigu.springcloud.service.PaymentFeignService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
