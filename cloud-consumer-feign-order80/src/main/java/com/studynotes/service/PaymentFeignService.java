@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * Description: Feign 声明式接口，通过 Feign 调用服务提供者的接口
  */
-@FeignClient(value = "CLOUD-PAYMENT-SERVICE", path = "/payment")
+@FeignClient(value = "CLOUD-PAYMENT-SERVICE", path = "/payment", fallback = PaymentFeigonServiceFallBack.class)
 public interface PaymentFeignService {
 
     @GetMapping("/get/{id}")
