@@ -1,5 +1,7 @@
 package com.atguigu.myFeign;
 
+import com.atguigu.springcloud.interceptors.InterceptorOne;
+import com.atguigu.springcloud.interceptors.InterceptorTwo;
 import feign.Contract;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,5 +29,15 @@ public class MySelfFeign {
     @Bean
     public feign.Logger.Level feignLoggerLevel() {
         return feign.Logger.Level.FULL;
+    }
+
+    @Bean
+    public InterceptorTwo interceptorTwo() {
+        return new InterceptorTwo();
+    }
+
+    @Bean
+    public InterceptorOne interceptorOne() {
+        return new InterceptorOne();
     }
 }
