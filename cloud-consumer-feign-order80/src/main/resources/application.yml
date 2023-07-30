@@ -17,20 +17,21 @@ feign:
         read-timeout: 5000
         # Feign 调用请求超时时间
         connect-timeout: 5000
-  # 开启 Hystrix，使 fallback 生效
+  # 开启 feign.hystrix.enable，使 fallback 生效
   hystrix:
     enabled: true
 
+# 开启 feign.hystrix.enable，使 fallback 生效，但是会使 read-timeout 和 connect-timeout 失效，需要在使用以下配置
 hystrix:
   command:
-    default: #default全局有效，service id指定应用有效
+    default: # default全局有效，service id指定应用有效
       execution:
         timeout:
-          #如果enabled设置为false，则请求超时交给ribbon控制,为true,则超时作为熔断根据
-          enabled: true
+          enabled: true # 如果enabled设置为false，则请求超时交给ribbon控制；为true，则超时作为熔断根据
         isolation:
           thread:
-            timeoutInMilliseconds: 10000 #断路器超时时间，默认10000ms
+            timeoutInMilliseconds: 5000 # 断路器超时时间，默认10000ms
+            # timeoutInMilliseconds: 1000 # 测试 fallback 时，设置为 1s
 
 logging:
   level:
