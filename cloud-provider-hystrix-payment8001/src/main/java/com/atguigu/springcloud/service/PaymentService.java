@@ -1,5 +1,7 @@
 package com.atguigu.springcloud.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,14 @@ public class PaymentService {
         long end = System.currentTimeMillis();
         System.out.println(end - start);
         return "线程池：" + Thread.currentThread().getName() + " paymentInfoOK，id：" + id + " O(∩_∩)O哈哈~" + " 耗时(秒): " + id;
+    }
+
+    @HystrixCommand(fallbackMethod = "paymentInfoTimeOutHandler", commandProperties = {
+            // 设置超时时间为 2000 ms
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
+    })
+    public String paymentInfoAnnotation(Integer id) {
+        return paymentInfo(id);
     }
 
     /**

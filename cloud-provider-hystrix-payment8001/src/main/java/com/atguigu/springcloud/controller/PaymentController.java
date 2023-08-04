@@ -103,4 +103,11 @@ public class PaymentController {
         return CollectionUtils.isEmpty(resultList) ? "" : resultList.get(0);
     }
 
+    /**
+     * Description: 使用 @HystrixCommand 注解实现服务降级
+     */
+    @GetMapping("/hystrix/timeoutAnnotation/{id}")
+    public String paymentInfoTimeOutAnnotation(@PathVariable("id") Integer id) {
+        return paymentService.paymentInfoAnnotation(id);
+    }
 }
