@@ -11,3 +11,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+hystrix:
+  command:
+    # 全局默认配置
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 3000

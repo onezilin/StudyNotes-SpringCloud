@@ -3,6 +3,7 @@ package com.atguigu.springcloud.controller;
 import com.atguigu.springcloud.service.PaymentOrignalObservableService;
 import com.atguigu.springcloud.service.PaymentOrignalService;
 import com.atguigu.springcloud.service.PaymentService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -109,5 +110,13 @@ public class PaymentController {
     @GetMapping("/hystrix/timeoutAnnotation/{id}")
     public String paymentInfoTimeOutAnnotation(@PathVariable("id") Integer id) {
         return paymentService.paymentInfoAnnotation(id);
+    }
+
+    /**
+     * Description: 使用 @DefaultProperties 全局默认配置注解实现服务降级
+     */
+    @GetMapping("/hystrix/timeoutAnnotationDefault/{id}")
+    public String paymentInfoTimeOutAnnotationDefault(@PathVariable("id") Integer id) {
+        return paymentService.paymentInfoAnnotationDefault(id);
     }
 }

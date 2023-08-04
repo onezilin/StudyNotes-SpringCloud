@@ -1,5 +1,6 @@
 package com.atguigu.springcloud.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Description:
  */
 @Service
+@DefaultProperties(defaultFallback = "paymentGlobalFallbackMethod")
 public class PaymentService {
 
     @Value("${server.port}")
@@ -43,6 +45,15 @@ public class PaymentService {
     })
     public String paymentInfoAnnotation(Integer id) {
         return paymentInfo(id);
+    }
+
+    @HystrixCommand
+    public String paymentInfoAnnotationDefault(Integer id) {
+        return paymentInfo(id);
+    }
+
+    public String paymentGlobalFallbackMethod() {
+        return "Global 异常处理信息，请稍后再试，o(╥﹏╥)o";
     }
 
     /**
