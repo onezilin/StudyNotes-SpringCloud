@@ -15,8 +15,14 @@ public class PaymentOrignalService extends HystrixCommand<String> {
         super(Setter
                 .withGroupKey(HystrixCommandGroupKey.Factory.asKey("orderService"))
                 .andCommandKey(HystrixCommandKey.Factory.asKey("queryByOrderId"))
-                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutEnabled(true))
-                .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10)));
+                .andCommandPropertiesDefaults(
+                        HystrixCommandProperties.Setter()
+                                .withExecutionTimeoutEnabled(true)
+                                // 使用线程隔离时，会为每个命令分配一个线程，容易造成资源浪费
+                                // 使用信号量隔离时，会为每个命令分配一个信号量，使用当前线程执行
+                                .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE) // 信号量隔离
+                                .withExecutionIsolationSemaphoreMaxConcurrentRequests(10) // 信号量最大并发数
+                ));
 
         this.paymentService = paymentService;
         this.id = id;
