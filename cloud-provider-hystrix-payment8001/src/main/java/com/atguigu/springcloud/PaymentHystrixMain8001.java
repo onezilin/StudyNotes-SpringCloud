@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 
 @SpringBootApplication
-// 等同于 @EnableHystrix，开启断路器功能，扫描 @HystrixCommand 注解
+// 等同于 @EnableHystrix，开启断路器功能，
+// 在 Hystrix 中会对 @HystrixCommand 注解所在的方法进行 AOP 增强
 @EnableCircuitBreaker
 public class PaymentHystrixMain8001 {
     public static void main(String[] args) {

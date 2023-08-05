@@ -3,8 +3,11 @@ package com.atguigu.springcloud.service;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.netflix.hystrix.contrib.javanica.annotation.ObservableExecutionMode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import rx.Observable;
+import rx.Subscriber;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +57,28 @@ public class PaymentService {
 
     public String paymentGlobalFallbackMethod() {
         return "Global 异常处理信息，请稍后再试，o(╥﹏╥)o";
+    }
+
+    @HystrixCommand(fallbackMethod = "paymentInfoTimeOutHandler", commandProperties = {
+            // 设置超时时间为 2000 ms
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
+    }, observableExecutionMode = ObservableExecutionMode.EAGER // observe方式
+            // , observableExecutionMode = ObservableExecutionMode.LAZY // toObservable方式
+    )
+    // 用的是注解写的是 HystrixCommand，其实实现的是 HystrixObservableCommand
+    public Observable<String> paymentInfoAnnotationObservable(Integer id) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            public void call(Subscriber<? super String> observer) {
+                try {
+                    // 这里不需加判断，可以删掉判断
+                    if (!observer.isUnsubscribed()) {
+                        observer.onNext(paymentInfo(id));
+                    }
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+            }
+        });
     }
 
     /**
