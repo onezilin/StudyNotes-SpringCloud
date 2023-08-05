@@ -7,3 +7,25 @@ eureka:
     register-with-eureka: false
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+
+feign:
+  # 设置
+  client:
+    config:
+      default:
+        # Feign 调用连接超时时间
+        read-timeout: 5000
+        # Feign 调用请求超时时间
+        connect-timeout: 5000
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 7000 # 超时时间
+
+# Feign（或 Ribbon）超时时间同时配置时，取两者之间的最小值
