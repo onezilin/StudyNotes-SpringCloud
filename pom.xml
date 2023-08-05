@@ -12,6 +12,7 @@
         <module>cloud-consumer-order80</module>
         <module>cloud-consumer-feign-order80</module>
         <module>cloud-consumer-feign-hystrix-order80</module>
+        <module>cloud-cousumer-hystrix-dashboard9001</module>
         <module>cloud-api-commons</module>
         <module>cloud-eureka-server7001</module>
         <module>cloud-eureka-server7002</module>
