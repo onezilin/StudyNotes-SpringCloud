@@ -19,6 +19,12 @@ spring:
           uri: lb://CLOUD-PAYMENT-SERVICE # lb://服务注册中心的微服务名称，这种方式开启负载均衡
           predicates:
             - Path=/payment/lb # 路径相匹配的断言条件
+            - Cookie=name,[a-z]+
+            - Cookie=value,[a-z]+
+            - Header=GatewayNeed, \d+
+            - Host=localhost:9527
+            - Method=GET
+            - Query=id,.+ # 匹配任意请求参数
 
 eureka:
   client:
