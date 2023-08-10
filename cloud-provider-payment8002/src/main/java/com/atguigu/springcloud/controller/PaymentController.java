@@ -114,5 +114,20 @@ public class PaymentController {
     public String getPaymentLB() {
         return serverPort;
     }
+
+    @GetMapping("/timeout")
+    public String timeout() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return serverPort;
+    }
+
+    @GetMapping("/fallback")
+    public String fallback() {
+        return "服务降级测试OK";
+    }
 }
 

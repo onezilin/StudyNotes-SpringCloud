@@ -16,7 +16,7 @@ public class MyPartialFilterFactory extends AbstractGatewayFilterFactory<Object>
      */
     @Override
     public MyPartialFilter apply(Object config) {
-        System.out.println(config);
+        // System.out.println(config);
         return new MyPartialFilter();
     }
 

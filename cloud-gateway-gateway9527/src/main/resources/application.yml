@@ -31,6 +31,25 @@ spring:
             - SetStatus=401 # 设置响应状态码
             - MyPartialFilter # 自定义过滤器：只有当请求中携带了 user-id 头部信息时，才能访问
 
+        # http://localhost:9527/payment/timeout
+        - id: payment_routh3
+          uri: lb://CLOUD-PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+          filters:
+            - name: Hystrix # 开启熔断
+              args:
+                name: fallbackcmd # 熔断后执行的命令
+                fallbackUri: forward:/payment/fallback # 熔断后转发到的地址，必须能匹配 Path 断言
+
+hystrix:
+  command:
+    fallbackcmd: # 熔断后执行的命令
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000 #服务超时时间
+
 eureka:
   client:
     register-with-eureka: true
