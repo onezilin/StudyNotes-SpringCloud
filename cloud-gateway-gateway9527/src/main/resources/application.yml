@@ -29,6 +29,7 @@ spring:
             - Query=id,.+ # 匹配任意请求参数
           filters:
             - SetStatus=401 # 设置响应状态码
+            - MyPartialFilter # 自定义过滤器：只有当请求中携带了 user-id 头部信息时，才能访问
 
 eureka:
   client:
