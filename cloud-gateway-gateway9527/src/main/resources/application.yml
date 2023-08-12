@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: cloud-gateway
+  redis:
+    host: 192.168.190.134
+    port: 6379
+    database: 0
   cloud:
     gateway:
       default-filters: # 默认过滤器
@@ -31,16 +35,30 @@ spring:
             - SetStatus=401 # 设置响应状态码
             - MyPartialFilter # 自定义过滤器：只有当请求中携带了 user-id 头部信息时，才能访问
 
-        # http://localhost:9527/payment/timeout
+        # http://localhost:9527/payment/timeout?timeout=true
         - id: payment_routh3
           uri: lb://CLOUD-PAYMENT-SERVICE
           predicates:
             - Path=/payment/**
+            - Query=timeout,true
           filters:
             - name: Hystrix # 开启熔断
               args:
                 name: fallbackcmd # 熔断后执行的命令
                 fallbackUri: forward:/payment/fallback # 熔断后转发到的地址，必须能匹配 Path 断言
+
+        # http://localhost:9527/payment/timeout?rateLimiter=true
+        - id: payment_routh4
+          uri: lb://CLOUD-PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/get/**
+            - Query=rateLimiter,true
+          filters:
+            - name: RequestRateLimiter # 进行服务限流
+              args:
+                redis-rate-limiter.replenishRate: 1 # 令牌每秒填充数量
+                redis-rate-limiter.burstCapacity: 3 # 令牌桶总容量
+                key-resolver: "#{@pathKeyResolver}" # 自定义的 MyPathKeyResolver 的 Bean 名称
 
 hystrix:
   command:
