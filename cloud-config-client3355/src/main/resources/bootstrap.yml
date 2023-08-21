@@ -6,4 +6,14 @@ spring:
       label: master  # 分支名称
       name: config  # 配置文件名称
       profile: dev  # 读取后缀名称
-      uri: http://localhost:3344  # 配置中心的地址，组合起来就是：http://localhost:3344/master/config-dev.yml
+#      uri: http://localhost:3344  # 配置中心的地址，组合起来就是：http://localhost:3344/master/config-dev.yml
+      discovery:
+        service-id: CLOUD-CONFIG-CENTER # 从服务注册中心发现配置中心服务
+        enabled: true # 开启服务注册中心
+
+eureka:
+  client:
+    register-with-eureka: true # 是否注册进 eureka 服务注册中心
+    fetch-registry: true # 是否从 eureka 服务注册中心抓取已有的注册信息
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
