@@ -11,3 +11,16 @@ eureka:
 spring:
   application:
     name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          # 私有仓库需要配置账号密码
+          # username: xxxx
+          # password: xxxx
+          uri: https://github.com/onezilin/StudyNotes-SpringCloudConfig.git
+          # 当仓库下有子文件夹时，需要配置搜索路径，子文件夹中的同名文件会覆盖父文件夹中的同名文件
+          search-paths:
+            - foo
+          # 默认请求的 git 分支名称，当请求中没有配置 label 时使用该值，例如：http://localhost:3344/config-dev.yml
+          default-label: master
