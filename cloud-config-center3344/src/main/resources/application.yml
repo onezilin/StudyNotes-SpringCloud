@@ -24,3 +24,14 @@ spring:
             - foo
           # 默认请求的 git 分支名称，当请求中没有配置 label 时使用该值，例如：http://localhost:3344/config-dev.yml
           default-label: master
+    stream:
+      kafka:
+        binder:
+          brokers: 192.168.190.134:9092 # TODO: kafka 服务地址
+
+# 暴露监控端点 否则 curl -X POST "http://localhost:3366/actuator/refresh" 不可使用
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有端点

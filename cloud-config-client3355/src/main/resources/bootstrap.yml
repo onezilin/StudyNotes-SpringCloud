@@ -10,6 +10,10 @@ spring:
       discovery:
         service-id: CLOUD-CONFIG-CENTER # 从服务注册中心发现配置中心服务
         enabled: true # 开启服务注册中心
+    stream:
+      kafka:
+        binder:
+          brokers: 192.168.190.134:9092 # TODO: kafka 服务地址
 
 # 暴露监控端点 否则 curl -X POST "http://localhost:3355/actuator/refresh" 不可使用
 management:
