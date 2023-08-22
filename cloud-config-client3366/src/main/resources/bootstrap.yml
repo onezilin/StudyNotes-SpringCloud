@@ -7,3 +7,10 @@ spring:
       name: config  # 配置文件名称
       profile: dev  # 读取后缀名称
       uri: http://localhost:3344  # 配置中心的地址，组合起来就是：http://localhost:3344/master/config-dev.yml
+
+# 暴露监控端点 否则 curl -X POST "http://localhost:3366/actuator/refresh" 不可使用
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有端点

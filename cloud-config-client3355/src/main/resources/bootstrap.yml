@@ -11,6 +11,13 @@ spring:
         service-id: CLOUD-CONFIG-CENTER # 从服务注册中心发现配置中心服务
         enabled: true # 开启服务注册中心
 
+# 暴露监控端点 否则 curl -X POST "http://localhost:3355/actuator/refresh" 不可使用
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有端点
+
 eureka:
   client:
     register-with-eureka: true # 是否注册进 eureka 服务注册中心
