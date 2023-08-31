@@ -1,0 +1,17 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        ephemeral: true # 是否是临时实例，true 表示临时实例，false 表示持久化实例
+        server-addr: 192.168.190.134:8848 # TODO: Nacos Server 地址，多个可以用逗号隔开，这里我配置了 Nginx，所以这里写的是 Nginx 的地址
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
