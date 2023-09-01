@@ -15,8 +15,11 @@ public class ConfigController {
     @Value("${config.info}")
     private String configInfo;
 
+    @Value("${config.run}")
+    private String configRun;
+
     @GetMapping("/configInfo")
     public String getConfigInfo() {
-        return configInfo;
+        return configInfo + " " + configRun;
     }
 }

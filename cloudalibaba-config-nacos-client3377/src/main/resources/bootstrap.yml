@@ -5,8 +5,15 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.190.134:8848 # TODO: Nacos Server 地址，多个可以用逗号隔开，这里我配置了 Nginx，所以这里写的是 Nginx 的地址
+        namespace: myCustomNamespaceID # 命名空间 namespace ID，在此 namespace 进行服务注册发现
+        group: CUSTOM_GROUP # 组名
       config:
         server-addr: 192.168.190.134:8848 # TODO: Nacos Server 地址，多个可以用逗号隔开，这里我配置了 Nginx，所以这里写的是 Nginx 的地址
         file-extension: yml # 指定yaml文件
-        namespace: myCustomNamespaceID # 命名空间 namespace ID
+        namespace: myCustomNamespaceID # 命名空间 namespace ID，读取此 namespace 下的配置
         group: CUSTOM_GROUP # 组名
+        extension-configs: # 读取同一 namespace 下其它 group 内指定 data-id 的配置
+          - data-id: nacos-config-client-test.yml # 指定配置文件名
+            group: DEFAULT_GROUP # 组名
+            refresh: true # 是否自动刷新
+
