@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.atguigu.springcloud</groupId>
-    <artifactId>cloudalibaba-sentinel-service8401</artifactId>
+    <artifactId>cloudalibaba-sentinel-service8402</artifactId>
 
     <properties>
         <sentinel.version>1.8.0</sentinel.version>
