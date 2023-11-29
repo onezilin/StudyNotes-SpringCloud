@@ -21,3 +21,7 @@ ribbon:
       enabled: true # 开启 Ribbon 超时重试机制
   ReadTimeout: 6000
   ConectTimeout: 6000
+
+feign:
+  sentinel:
+    enabled: true # 开启 Sentinel 对 Feign 的支持
