@@ -28,6 +28,13 @@ public class PaymentController {
 
     @GetMapping("/paymentSQL/{id}")
     public CommonResult<Payment> paymentSQL(@PathVariable("id") Long id) {
+        if (id == 5) {
+            try {
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         Payment payment = hashMap.get(id);
         CommonResult<Payment> result = new CommonResult(200, "from mysql,serverPort:  " + serverPort, payment);
         return result;
