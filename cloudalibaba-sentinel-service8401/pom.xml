@@ -84,6 +84,12 @@
             <artifactId>sentinel-transport-simple-http</artifactId>
             <version>${sentinel.version}</version>
         </dependency>
+
+        <!-- Nacos 动态规则扩展数据源依赖 -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
