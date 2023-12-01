@@ -9,6 +9,13 @@ spring:
     port: 6379
     database: 0
   cloud:
+    sentinel:
+      filter:
+        enabled: false # false 表示不开启 URL 粒度的限流功能
+      transport:
+        dashboard: 192.168.190.134:8080 # TODO: 配置 Sentinel 控制台地址及端口号
+        port: 8719 # Sentinel 控制台和客户端通信的端口号，不配置的话默认是 8719，如果被占用了会自动往上加 1 找一个未被占用的端口
+        client-ip: 192.168.1.137 # TODO: 配置 Sentinel 客户端 IP（也就是本机 IP），不配置可能会识别成 Sentinel 控制台所在的 IP，导致错误
     gateway:
       default-filters: # 默认过滤器
         - SetRequestHeader=X-Request-Red, Blue # 设置请求头
