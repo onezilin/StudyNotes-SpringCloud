@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: cloud-order-service # Eureka Server 中的展示的服务别名
+  zipkin:
+    base-url: http://192.168.190.134:9411 # TODO: 配置 Zipkin Server 地址
+  sleuth:
+    sampler:
+      probability: 1 # 采样率值介于 0 到 1 之间，1 则表示全部采集，0.1 则表示 10 个请求中只采集 1 一个
 
 eureka:
   client:

@@ -129,5 +129,13 @@ public class PaymentController {
     public String fallback() {
         return "服务降级测试OK";
     }
+
+    /**
+     * Description: 测试 Zipkin 链路监控
+     */
+    @GetMapping("/zipkin")
+    public String paymentZipkin() {
+        return "hi,i`am paymentzipkin server fall back.welcome to atguigu.hahahahahhahahah";
+    }
 }
 

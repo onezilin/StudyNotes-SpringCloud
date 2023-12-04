@@ -75,4 +75,12 @@ public class OrderController {
         // 使用未加 @LoadBalanced 注解的 RestTemplate
         return restTemplate2.getForObject(uri + "/payment/lb", String.class);
     }
+
+    /**
+     * Description: 测试 Zipkin 链路监控
+     */
+    @GetMapping("/payment/zipkin")
+    public String paymentZipkin() {
+        return restTemplate.getForObject(PAYMENT_URL + "/payment/zipkin/", String.class);
+    }
 }
