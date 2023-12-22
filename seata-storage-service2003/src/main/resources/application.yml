@@ -1,0 +1,21 @@
+server:
+  port: 2003
+
+spring:
+  application:
+    name: seata-storage-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://192.168.190.134:3306/seata_storage?useUnicode=true&characterEncoding=utf-8&useSSL=false # TODO: 自定义 MySQL 地址
+    username: root
+    password: W110514
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  # TODO: 自定义
+  type-aliases-package: com.atguigu.springcloud.entities
+
+feign:
+  hystrix:
+    enabled: false
