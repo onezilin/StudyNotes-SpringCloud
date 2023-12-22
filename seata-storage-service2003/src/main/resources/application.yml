@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: seata-storage-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: seata_test_tx_group # TODO：连接到指定事务分组，对应 service.vgroupMapping.default_tx_group 中的 default_tx_group 名称
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.gjt.mm.mysql.Driver
