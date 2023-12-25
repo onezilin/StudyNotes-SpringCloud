@@ -26,6 +26,13 @@ public interface TOrderService {
     void createOrder(TOrder order);
 
     /**
+     * Description: 创建订单，调用 TCC 模式接口
+     *
+     * @param order 订单
+     */
+    void tccCreateOrder(TOrder order);
+
+    /**
      * Description: 修改订单状态
      *
      * @param id     订单 id

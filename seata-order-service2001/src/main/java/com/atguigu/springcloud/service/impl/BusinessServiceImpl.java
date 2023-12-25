@@ -32,8 +32,8 @@ public class BusinessServiceImpl implements BusinessService {
      * Description: 下单接口，创建订单 -> 调用库存服务扣减库存 -> 调用账户服务扣减账户余额 -> 修改订单状态
      * <p>
      * 测试步骤：
-     * 1、测试没有 @GlobalTransactional 时，测试**服务正常执行和某个服务挂掉**的情况，查看数据库数据的一致性
-     * 2、测试有 @GlobalTransactional 时，测试**服务正常执行和某个服务挂掉**的情况，查看数据库数据的一致性
+     * 1、测试没有 @GlobalTransactional 时，测试**服务正常执行和抛异常**的情况，查看数据库数据的一致性
+     * 2、测试有 @GlobalTransactional 时，测试**服务正常执行和抛异常**的情况，查看数据库数据的一致性
      *
      * @param order 订单
      */
@@ -59,5 +59,38 @@ public class BusinessServiceImpl implements BusinessService {
         tOrderService.updateStatus(order.getId(), 1);
 
         log.info("------->下单结束");
+
+        // throw new RuntimeException("模拟异常");
+    }
+
+    /**
+     * Description: 下单接口，创建订单 -> 调用库存服务扣减库存 -> 调用账户服务扣减账户余额 -> 修改订单状态
+     * <p>
+     * 测试步骤：
+     * 1、测试没有 @GlobalTransactional 时，测试**服务正常执行和抛异常**的情况，查看数据库数据的一致性
+     * 2、测试有 @GlobalTransactional 时，测试**服务正常执行和抛异常**的情况，查看数据库数据的一致性
+     *
+     * @param order 订单
+     */
+    @Override
+    @GlobalTransactional
+    public void purchaseByTCC(TOrder order) {
+        log.info("------->下单开始");
+
+        // 1. 创建订单
+        log.info("------->开始新建订单");
+        tOrderService.tccCreateOrder(order);
+
+        // 2. 调用库存服务扣减库存
+        log.info("------->订单微服务开始调用库存，做扣减Count");
+        tStorageService.decreaseStorage(order.getProductId(), order.getCount());
+
+        // 3. 调用账户服务扣减账户余额
+        log.info("------->订单微服务开始调用账户，做扣减Money");
+        tAccountService.decreaseMoney(order.getUserId(), BigDecimal.valueOf(order.getMoney()));
+
+        log.info("------->下单结束");
+
+        // throw new RuntimeException("模拟异常");
     }
 }

@@ -31,4 +31,16 @@ public class BusinessController {
         businessService.purchaseByAT(order);
         return new CommonResult<>(200, "下单成功");
     }
+
+    /**
+     * Description: 下单接口，通过 TCC 模式实现分布式事务
+     *
+     * @param order 订单
+     * @return com.atguigu.springcloud.entities.CommonResult<com.atguigu.springcloud.entities.TOrder>
+     */
+    @PostMapping("/purchaseByTCC")
+    public CommonResult<TOrder> purchaseByTCC(@RequestBody TOrder order) {
+        businessService.purchaseByTCC(order);
+        return new CommonResult<>(200, "下单成功");
+    }
 }
