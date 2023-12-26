@@ -26,6 +26,13 @@ public interface TOrderService {
     boolean createOrder(TOrder order);
 
     /**
+     * Description: Saga 模式下，创建订单的补偿接口
+     *
+     * @param order 订单
+     */
+    void createOrderCompensation(TOrder order);
+
+    /**
      * Description: 修改订单状态
      *
      * @param id     订单 id

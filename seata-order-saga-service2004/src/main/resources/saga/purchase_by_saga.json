@@ -1,0 +1,234 @@
+{
+  "nodes": [
+    {
+      "color": "red",
+      "id": "d6d40f5c",
+      "label": "下单业务失败",
+      "shape": "flow-circle",
+      "size": "72*72",
+      "stateId": "Fail",
+      "stateProps": {
+        "ErrorCode": "666",
+        "Message": "下单业务失败"
+      },
+      "stateType": "Fail",
+      "type": "node",
+      "x": 738.8333282470703,
+      "y": 536.6666641235352,
+      "index": 20
+    },
+    {
+      "color": "#722ED1",
+      "id": "99eda994",
+      "label": "创建订单补偿",
+      "shape": "flow-capsule",
+      "size": "110*48",
+      "stateId": "CreateOrderCompensation",
+      "stateProps": {
+        "Input": [
+          "$.[order]"
+        ],
+        "ServiceMethod": "createOrderCompensation",
+        "ServiceName": "tOrderService"
+      },
+      "stateType": "Compensation",
+      "type": "node",
+      "x": -20.833343505859375,
+      "y": 536.6666641235352,
+      "index": 24
+    },
+    {
+      "color": "red",
+      "id": "bf4f0b7e",
+      "label": "CreateOrderCatch",
+      "shape": "flow-circle",
+      "size": "39*39",
+      "stateId": "CreateOrderCatch",
+      "stateType": "Catch",
+      "type": "node",
+      "x": 276.10527099609374,
+      "y": 536.6666641235352,
+      "index": 25
+    },
+    {
+      "color": "red",
+      "id": "28bf46d3",
+      "label": "创建订单补偿触发",
+      "shape": "flow-capsule",
+      "size": "110*48",
+      "stateId": "CreateOrderCompensationTrigger",
+      "stateType": "CompensationTrigger",
+      "type": "node",
+      "x": 506.1666564941406,
+      "y": 536.6666641235352,
+      "index": 26
+    },
+    {
+      "color": "#FA8C16",
+      "id": "db4c4a01",
+      "index": 29,
+      "label": "Start",
+      "shape": "flow-circle",
+      "size": "72*72",
+      "stateId": "purchaseBySaga",
+      "stateProps": {
+        "Next": "ReduceGoods",
+        "StateMachine": {
+          "Comment": "开始下单",
+          "Name": "purchaseBySaga",
+          "Version": "0.0.1"
+        }
+      },
+      "stateType": "Start",
+      "type": "node",
+      "x": 219.10527099609374,
+      "y": 415.22110877990724
+    },
+    {
+      "color": "#05A465",
+      "id": "d4e7e04e",
+      "index": 34,
+      "label": "下单业务成功",
+      "shape": "flow-circle",
+      "size": "72*72",
+      "stateId": "Succeed",
+      "stateProps": {
+        "Type": "Succeed"
+      },
+      "stateType": "Succeed",
+      "type": "node",
+      "x": 219.10527099609374,
+      "y": 818.8333358764648
+    },
+    {
+      "color": "#13C2C2",
+      "id": "35113d56",
+      "index": 35,
+      "label": "创建订单判断",
+      "shape": "flow-rhombus",
+      "size": "80*72",
+      "stateId": "CreateOrderState",
+      "stateProps": {},
+      "stateType": "Choice",
+      "type": "node",
+      "x": 219.10527099609374,
+      "y": 669.6666641235352
+    },
+    {
+      "color": "#1890FF",
+      "id": "101b97df",
+      "index": 36,
+      "label": "创建订单",
+      "shape": "flow-rect",
+      "size": "110*48",
+      "stateId": "CreateOrder",
+      "stateProps": {
+        "CompensateState": "CreateOrderCompensation",
+        "Input": [
+          "$.[order]"
+        ],
+        "Next": "CreateOrderState",
+        "Output": {
+          "CreateOrderResult": "$.#root"
+        },
+        "ServiceMethod": "createOrder",
+        "ServiceName": "tOrderService",
+        "Status": {
+          "#root == false": "FA",
+          "#root==true": "SU",
+          "$Exception{java.lang.Throwable}": "UN"
+        },
+        "Type": "ServiceTask"
+      },
+      "stateType": "ServiceTask",
+      "type": "node",
+      "x": 219.10527099609374,
+      "y": 536.6666641235352
+    }
+  ],
+  "edges": [
+    {
+      "id": "26d69c8e",
+      "shape": "flow-polyline-round",
+      "source": "101b97df",
+      "sourceAnchor": 3,
+      "style": {
+        "endArrow": false,
+        "lineDash": "4"
+      },
+      "target": "99eda994",
+      "targetAnchor": 1,
+      "type": "Compensation",
+      "index": 11
+    },
+    {
+      "id": "8983c877",
+      "label": "",
+      "shape": "flow-polyline-round",
+      "source": "bf4f0b7e",
+      "sourceAnchor": 1,
+      "stateProps": {
+        "Exceptions": [
+          "java.lang.Throwable"
+        ],
+        "Next": "CreateOrderCompensationTrigger"
+      },
+      "target": "28bf46d3",
+      "targetAnchor": 3,
+      "index": 12
+    },
+    {
+      "id": "2e639684",
+      "shape": "flow-polyline-round",
+      "source": "101b97df",
+      "sourceAnchor": 2,
+      "target": "35113d56",
+      "targetAnchor": 0,
+      "index": 14
+    },
+    {
+      "id": "b9bf4a83",
+      "label": "",
+      "shape": "flow-polyline-round",
+      "source": "35113d56",
+      "sourceAnchor": 2,
+      "stateProps": {
+        "Expression": "[CreateOrderResult]==true",
+        "Next": "Succeed"
+      },
+      "target": "d4e7e04e",
+      "targetAnchor": 0,
+      "index": 15
+    },
+    {
+      "id": "541f04ee",
+      "label": "",
+      "shape": "flow-polyline-round",
+      "source": "35113d56",
+      "sourceAnchor": 1,
+      "stateProps": {
+        "Expression": "[CreateOrderResult]==false",
+        "Next": "CreateOrderCompensationTrigger"
+      },
+      "target": "28bf46d3",
+      "targetAnchor": 2,
+      "index": 16
+    },
+    {
+      "source": "db4c4a01",
+      "sourceAnchor": 2,
+      "target": "101b97df",
+      "targetAnchor": 0,
+      "id": "0faa311f",
+      "shape": "flow-polyline-round"
+    },
+    {
+      "source": "28bf46d3",
+      "sourceAnchor": 1,
+      "target": "d6d40f5c",
+      "targetAnchor": 3,
+      "id": "128b348e",
+      "shape": "flow-polyline-round"
+    }
+  ]
+}

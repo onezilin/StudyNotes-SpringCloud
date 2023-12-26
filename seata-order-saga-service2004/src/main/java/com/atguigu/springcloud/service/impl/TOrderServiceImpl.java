@@ -46,6 +46,16 @@ public class TOrderServiceImpl implements TOrderService {
     }
 
     /**
+     * Description: Saga 模式下，创建订单的补偿接口
+     *
+     * @param order 订单
+     */
+    @Override
+    public void createOrderCompensation(TOrder order) {
+        log.info("测试补偿接口是否调用");
+    }
+
+    /**
      * Description: 修改订单状态
      *
      * @param id     订单 id
